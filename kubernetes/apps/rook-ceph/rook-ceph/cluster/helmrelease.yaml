@@ -90,6 +90,8 @@ spec:
         disable: false
       dashboard:
         enabled: true
+        Port: 7000
+        Ssl: true
         urlPrefix: /
       storage:
         useAllNodes: false
