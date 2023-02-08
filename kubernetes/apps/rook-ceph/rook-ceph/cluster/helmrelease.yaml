@@ -69,15 +69,15 @@ spec:
         config:
           osdsPerDevice: "1"
         nodes:
-          - name: k8s-3
+          - name: worker1
             devices:
-              - name: /dev/disk/by-id/nvme-WDC_WDS100T2B0C-00PXH0_194688900123
-          - name: k8s-4
+              - name: /dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi0-part2
+          - name: worker2
             devices:
-              - name: /dev/disk/by-id/nvme-WDC_WDS100T2B0C-00PXH0_2014HD454202
-          - name: k8s-5
+              - name: /dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi0-part2
+          - name: worker3
             devices:
-              - name: /dev/disk/by-id/nvme-WDC_WDS100T2B0C-00PXH0_2014HD455903
+              - name: /dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi0-part2
     cephBlockPools:
       - name: ceph-blockpool
         spec:
