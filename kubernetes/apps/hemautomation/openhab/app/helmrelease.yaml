@@ -5,7 +5,7 @@ metadata:
   name: &app openhab
   namespace: hemautomation
 spec:
-  releaseName: openhab
+  releaseName: oh
   interval: 5m
   chart:
     spec:
