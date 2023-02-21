@@ -6,4 +6,4 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1h
-  url: https://dhermanns.github.io/openhab-helm-chart/
+  url: https://dhermanns.github.io/openhab-helm-chart
