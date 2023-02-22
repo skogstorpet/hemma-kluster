@@ -54,6 +54,8 @@ spec:
       # @default -- See values.yaml
       main:
         enabled: true
+        hosts:
+          - host: openhab.stromberg.lan
 
 
     # -- Configure persistence settings for the chart under this key.
