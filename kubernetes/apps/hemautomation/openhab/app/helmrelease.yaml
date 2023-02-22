@@ -56,7 +56,7 @@ spec:
         enabled: true
         ingressClassName: nginx
         annotations:
-          external-dns.alpha.kubernetes.io/target: ipv4.devbu.io
+          external-dns.alpha.kubernetes.io/target: ipv4.stromberg.uk
           hajimari.io/icon: mdi:home-assistant
         hosts:
           - host: &host openhab.stromberg.uk
