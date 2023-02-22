@@ -14,88 +14,74 @@ spec:
       version: "0.1.0"
       sourceRef:
         kind: HelmRepository
-        name: dhermanns-charts
+        name: openhba-charts
         namespace: flux-system
       interval: 5m
   values:
     image:
-      repository: nginx
+      # -- image repository
+      repository: openhab/openhab
+      # -- image tag
+      tag: 3.4.1-alpine
+      # -- image pull policy
       pullPolicy: IfNotPresent
-      # Overrides the image tag whose default is the chart appVersion.
-      tag: ""
 
-    imagePullSecrets: []
-    nameOverride: ""
-    fullnameOverride: ""
+    # -- environment variables.
+    # @default -- See below
+    env:
+      # -- Set the container timezone
+      TZ: UTC
 
-    serviceAccount:
-      # Specifies whether a service account should be created
-      create: true
-      # Annotations to add to the service account
-      annotations: {}
-      # The name of the service account to use.
-      # If not set and create is true, a name is generated using the fullname template
-      name: ""
+      # -- Set the correct user id
+      USER_ID: 9001
+      # -- Set the correct group id
+      GROUP_ID: 9001
 
-    podAnnotations: {}
-
+    # -- Configures service settings for the chart.
+    # @default -- See values.yaml
     service:
-      type: LoadBalancer
-      port: 80
-
-    defaultIngress:
-      enabled: false
+      main:
+        ports:
+          http:
+            port: 8080
+          languageserver:
+            enabled: false
+            protcol: TCP
+            port: 5007
 
     ingress:
-      enabled: false
-      annotations:
-        kubernetes.io/ingress.class: traefik
-        ingress.kubernetes.io/auth-type: basic
-        ingress.kubernetes.io/auth-secret: authsecret
-        # ingress.kubernetes.io/custom-request-headers: "Set-Cookie: X-OPENHAB-AUTH-HEADER=1"
-        # ingress.kubernetes.io/custom-response-headers: "Set-Cookie: X-OPENHAB-AUTH-HEADER=1"
-        # ingress.kubernetes.io/auth-remove-header: "true"
-        cert-manager.io/cluster-issuer: letsencrypt-prod
-      hosts:
-        - host: openhab.stromberg.lan
-      tlshosts:
-        - host: openhab.stromberg.lan
+      # -- Enable and configure ingress settings for the chart under this key.
+      # @default -- See values.yaml
+      main:
+        enabled: true
 
-    grafanaIngress:
-      enabled: true
-      hosts:
-        - host: oh-grafana
 
-    influxIngress:
-      enabled: true
-      hosts:
-        - host: influx.stromberg.lan
+    # -- Configure persistence settings for the chart under this key.
+    # @default -- See values.yaml
+    persistence:
+      conf:
+        enabled: true
+        mountPath: /openhab/conf
 
-    resources: {}
-      # We usually recommend not to specify default resources and to leave this as a conscious
-      # choice for the user. This also increases chances charts run on environments with little
-      # resources, such as Minikube. If you do want to specify resources, uncomment the following
-      # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-      # limits:
-      #   cpu: 100m
-      #   memory: 128Mi
-      # requests:
-      #   cpu: 100m
-      #   memory: 128Mi
+      userdata:
+        enabled: true
+        mountPath: /openhab/userdata
 
-    autoscaling:
-      enabled: false
-      minReplicas: 1
-      maxReplicas: 100
-      targetCPUUtilizationPercentage: 80
-      # targetMemoryUtilizationPercentage: 80
+      addons:
+        enabled: true
+        mountPath: /openhab/addons
 
-    nodeSelector: {}
+      java:
+        enabled: true
+        mountPath: /openhab/.java
 
-    tolerations: []
 
-    affinity: {}
-
-    influxdb:
-      image:
-      tag: "1.8.6"
+    # -- Configures the probes for the main Pod.
+    # @default -- See values.yaml
+    probes:
+      liveness:
+        enabled: false
+      readiness:
+        enabled: false
+      startup:
+        enabled: false
