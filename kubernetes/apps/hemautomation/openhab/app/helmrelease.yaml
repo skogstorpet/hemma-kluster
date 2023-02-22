@@ -14,7 +14,7 @@ spec:
       version: 1.0.1
       sourceRef:
         kind: HelmRepository
-        name: openhba-charts
+        name: openhab-charts
         namespace: flux-system
       interval: 5m
   values:
