@@ -60,19 +60,19 @@ spec:
     # @default -- See values.yaml
     persistence:
       conf:
-        enabled: true
+        enabled: false
         mountPath: /openhab/conf
 
       userdata:
-        enabled: true
+        enabled: false
         mountPath: /openhab/userdata
 
       addons:
-        enabled: true
+        enabled: false
         mountPath: /openhab/addons
 
       java:
-        enabled: true
+        enabled: false
         mountPath: /openhab/.java
 
 
