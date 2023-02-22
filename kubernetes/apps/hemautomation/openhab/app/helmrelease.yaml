@@ -5,13 +5,13 @@ metadata:
   name: &app openhab
   namespace: hemautomation
 spec:
-  releaseName: oh
+  releaseName: openhab
   interval: 5m
   chart:
     spec:
       # renovate: registryUrl=https://dhermanns.github.io/openhab-helm-chart/
-      chart: openhab-helm-chart
-      version: "0.1.0"
+      chart: openhab
+      version: 1.0.1
       sourceRef:
         kind: HelmRepository
         name: openhba-charts
