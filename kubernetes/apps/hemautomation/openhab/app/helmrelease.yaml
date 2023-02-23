@@ -72,7 +72,7 @@ spec:
     # @default -- See values.yaml
     persistence:
       conf:
-        enabled: false
+        enabled: true
         mountPath: /openhab/conf
 
       userdata:
@@ -86,7 +86,18 @@ spec:
       java:
         enabled: false
         mountPath: /openhab/.java
+      storageClass: "longhorn"
+      size: 1Gi
 
+    influxdb:
+      enabled: false
+      architecture: standalone
+      database: home_assistant
+      authEnabled: false
+      persistence:
+        enabled: false
+        storageClass: "longhorn"
+        size: 8Gi
 
     # -- Configures the probes for the main Pod.
     # @default -- See values.yaml
