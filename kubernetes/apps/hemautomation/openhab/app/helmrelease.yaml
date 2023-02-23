@@ -87,11 +87,6 @@ spec:
         enabled: true
         mountPath: /openhab/.java
 
-      storageClass: "longhorn"
-      accessModes:
-        - ReadWriteOnce
-      size: 1Gi
-
     influxdb:
       enabled: false
       architecture: standalone
