@@ -94,19 +94,11 @@ spec:
       authEnabled: false
       persistence:
         enabled: false
-        storageClass: "longhorn"
-        accessModes:
-          - ReadWriteOnce
-        size: 8Gi
 
     grafana:
       enabled: true
       persistence:
         enabled: false
-        storageClass: "longhorn"
-        accessModes:
-          - ReadWriteOnce
-        size: 4Gi
 
     # -- Configures the probes for the main Pod.
     # @default -- See values.yaml
