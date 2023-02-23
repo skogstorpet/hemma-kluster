@@ -80,7 +80,7 @@ spec:
         mountPath: /openhab/userdata
 
       addons:
-        enabled: false
+        enabled: true
         mountPath: /openhab/addons
 
       java:
