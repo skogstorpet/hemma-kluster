@@ -87,6 +87,8 @@ spec:
         enabled: false
         mountPath: /openhab/.java
       storageClass: "longhorn"
+      accessModes:
+        - ReadWriteOnce
       size: 1Gi
 
     influxdb:
@@ -97,6 +99,8 @@ spec:
       persistence:
         enabled: false
         storageClass: "longhorn"
+        accessModes:
+          - ReadWriteOnce
         size: 8Gi
 
     grafana:
@@ -104,6 +108,8 @@ spec:
       persistence:
         enabled: false
         storageClass: "longhorn"
+        accessModes:
+          - ReadWriteOnce
         size: 4Gi
 
     # -- Configures the probes for the main Pod.
