@@ -74,28 +74,26 @@ spec:
       conf:
         enabled: true
         mountPath: /openhab/conf
-        accessModes: ReadWriteOnce
 
       userdata:
-        enabled: false
+        enabled: true
         mountPath: /openhab/userdata
         accessModes:
           - ReadWriteOnce
 
       addons:
-        enabled: false
+        enabled: true
         mountPath: /openhab/addons
         accessModes:
           - ReadWriteOnce
 
       java:
-        enabled: false
+        enabled: true
         mountPath: /openhab/.java
         accessModes:
           - ReadWriteOnce
 
       storageClass: "longhorn"
-
       accessModes:
         - ReadWriteOnce
       size: 1Gi
