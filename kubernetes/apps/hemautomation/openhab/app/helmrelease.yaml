@@ -88,7 +88,7 @@ spec:
         mountPath: /openhab/.java
 
     influxdb:
-      enabled: false
+      enabled: true
       architecture: standalone
       database: openhab
       authEnabled: false
