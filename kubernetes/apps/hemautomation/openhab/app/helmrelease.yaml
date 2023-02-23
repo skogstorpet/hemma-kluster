@@ -78,20 +78,14 @@ spec:
       userdata:
         enabled: true
         mountPath: /openhab/userdata
-        accessModes:
-          - ReadWriteOnce
 
       addons:
         enabled: true
         mountPath: /openhab/addons
-        accessModes:
-          - ReadWriteOnce
 
       java:
         enabled: true
         mountPath: /openhab/.java
-        accessModes:
-          - ReadWriteOnce
 
       storageClass: "longhorn"
       accessModes:
