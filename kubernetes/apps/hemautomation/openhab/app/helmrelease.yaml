@@ -72,7 +72,7 @@ spec:
     # @default -- See values.yaml
     persistence:
       data:
-        enabled: false
+        enabled: true
         subPath:
           - mountPath: /openhab/addons
             path: addons
