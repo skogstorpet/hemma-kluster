@@ -79,12 +79,12 @@ spec:
       userdata:
         enabled: true
         mountPath: /openhab/userdata
-        existingClaim: openhab-config-longhorn
+        existingClaim: openhab-longhorn
 
       addons:
         enabled: true
         mountPath: /openhab/addons
-        existingClaim: openhab-config-longhorn
+        existingClaim: openhab-longhorn
 
       java:
         enabled: true
