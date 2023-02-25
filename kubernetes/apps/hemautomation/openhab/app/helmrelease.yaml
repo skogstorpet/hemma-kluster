@@ -74,22 +74,22 @@ spec:
       conf:
         enabled: true
         mountPath: /openhab/conf
-        existingClaim: home-assistant-config-longhorn
+        existingClaim: openhab-longhorn
 
       userdata:
         enabled: true
         mountPath: /openhab/userdata
-        existingClaim: home-assistant-config-longhorn
+        existingClaim: openhab-config-longhorn
 
       addons:
         enabled: true
         mountPath: /openhab/addons
-        existingClaim: home-assistant-config-longhorn
+        existingClaim: openhab-config-longhorn
 
       java:
         enabled: true
         mountPath: /openhab/.java
-        existingClaim: home-assistant-config-longhorn
+        existingClaim: openhab-longhorn
 
     # -- Configures the probes for the main Pod.
     # @default -- See values.yaml
