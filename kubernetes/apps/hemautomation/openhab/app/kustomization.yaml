@@ -5,3 +5,4 @@ kind: Kustomization
 namespace: hemautomation
 resources:
   - ./helmrelease.yaml
+  - ./openhab-pvc.yaml

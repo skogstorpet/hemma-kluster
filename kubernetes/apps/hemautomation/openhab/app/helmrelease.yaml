@@ -74,31 +74,22 @@ spec:
       conf:
         enabled: true
         mountPath: /openhab/conf
+        existingClaim: home-assistant-config-longhorn
 
       userdata:
         enabled: true
         mountPath: /openhab/userdata
+        existingClaim: home-assistant-config-longhorn
 
       addons:
         enabled: true
         mountPath: /openhab/addons
+        existingClaim: home-assistant-config-longhorn
 
       java:
         enabled: true
         mountPath: /openhab/.java
-
-    influxdb:
-      enabled: true
-      architecture: standalone
-      database: openhab
-      authEnabled: false
-      persistence:
-        enabled: false
-
-    grafana:
-      enabled: true
-      persistence:
-        enabled: false
+        existingClaim: home-assistant-config-longhorn
 
     # -- Configures the probes for the main Pod.
     # @default -- See values.yaml
