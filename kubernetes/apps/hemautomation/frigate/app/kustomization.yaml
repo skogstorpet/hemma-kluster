@@ -4,7 +4,7 @@ kind: Kustomization
 resources:
   - dashboard
   - config-pvc.yaml
-  - helm-release.yaml
+  - helmrelease.yaml
 namespace: hemautomation
 configMapGenerator:
   - name: frigate-config
