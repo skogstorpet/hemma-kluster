@@ -91,6 +91,9 @@ spec:
         mountPath: /openhab/.java
         existingClaim: openhab-longhorn
 
+    nodeSelector:
+      node-role.kubernetes.io/worker: "true"
+
     # -- Configures the probes for the main Pod.
     # @default -- See values.yaml
     probes:
