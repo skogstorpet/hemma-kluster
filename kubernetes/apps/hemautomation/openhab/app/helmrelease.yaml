@@ -71,25 +71,18 @@ spec:
     # -- Configure persistence settings for the chart under this key.
     # @default -- See values.yaml
     persistence:
-      conf:
-        enabled: true
-        mountPath: /openhab/conf
-        existingClaim: openhab-longhorn
-
-      userdata:
-        enabled: true
-        mountPath: /openhab/userdata
-        existingClaim: openhab-longhorn
-
-      addons:
-        enabled: true
-        mountPath: /openhab/addons
-        existingClaim: openhab-longhorn
-
-      java:
-        enabled: true
-        mountPath: /openhab/.java
-        existingClaim: openhab-longhorn
+      data:
+        enabled: false
+        subPath:
+          - mountPath: /openhab/addons
+            path: addons
+            existingClaim: openhab-longhorn
+          - mountPath: /openhab/conf
+            path: conf
+            existingClaim: openhab-longhorn
+          - mountPath: /openhab/userdata
+            path: userdata
+            existingClaim: openhab-longhorn
 
     nodeSelector:
       node-role.kubernetes.io/worker: "true"
