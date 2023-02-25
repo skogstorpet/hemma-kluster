@@ -72,17 +72,6 @@ spec:
           - secretName: "tls.{{ .Release.Name }}"
             hosts:
               - *host
-    podAnnotations:
-      configmap.reloader.stakater.com/reload: "frigate-config"
-    affinity:
-      nodeAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          nodeSelectorTerms:
-            - matchExpressions:
-                - key: disk
-                  operator: In
-                  values:
-                    - "block"
     resources:
       requests:
         cpu: 295m
