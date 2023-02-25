@@ -83,19 +83,8 @@ spec:
           - mountPath: /openhab/userdata
             path: userdata
             existingClaim: openhab-longhorn
-
     nodeSelector:
-      node-role.kubernetes.io/worker: "true"
-
-    affinity:
-      podAntiAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          - labelSelector:
-              matchExpressions:
-                - key: disk
-                  operator: In
-                  values: ["block"]
-            topologyKey: kubernetes.io/hostname
+      disk: block
     # -- Configures the probes for the main Pod.
     # @default -- See values.yaml
     probes:
