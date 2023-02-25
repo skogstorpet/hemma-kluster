@@ -94,6 +94,15 @@ spec:
     nodeSelector:
       node-role.kubernetes.io/worker: "true"
 
+    affinity:
+      podAntiAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+                - key: disk
+                  operator: In
+                  values: ["block"]
+            topologyKey: kubernetes.io/hostname
     # -- Configures the probes for the main Pod.
     # @default -- See values.yaml
     probes:
