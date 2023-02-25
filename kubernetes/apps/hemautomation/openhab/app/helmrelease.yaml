@@ -22,7 +22,7 @@ spec:
       # -- image repository
       repository: openhab/openhab
       # -- image tag
-      tag: 3.4.1-alpine
+      tag: 3.4.2-alpine
       # -- image pull policy
       pullPolicy: IfNotPresent
 
