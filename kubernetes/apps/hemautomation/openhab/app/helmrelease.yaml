@@ -73,6 +73,7 @@ spec:
     persistence:
       data:
         enabled: true
+        existingClaim: openhab-longhorn
         subPath:
           - mountPath: /openhab/addons
             path: addons
@@ -80,7 +81,6 @@ spec:
             path: conf
           - mountPath: /openhab/userdata
             path: userdata
-        existingClaim: openhab-longhorn
 
     nodeSelector:
       disk: block
