@@ -77,12 +77,18 @@ spec:
           - mountPath: /openhab/addons
             path: addons
             existingClaim: openhab-longhorn
+            accessModes:
+              - ReadWriteOnce
           - mountPath: /openhab/conf
             path: conf
             existingClaim: openhab-longhorn
+            accessModes:
+              - ReadWriteOnce
           - mountPath: /openhab/userdata
             path: userdata
             existingClaim: openhab-longhorn
+            accessModes:
+              - ReadWriteOnce
     nodeSelector:
       disk: block
     # -- Configures the probes for the main Pod.
