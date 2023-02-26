@@ -4,7 +4,7 @@ metadata:
     name: thanos-objstore
     namespace: monitoring
 stringData:
-    objstore.yml: ENC[AES256_GCM,data:f6oHZL4KSEPkHPjDx8lCJk7hUzh2wtYSoUH/+pQA9Wr4Rfb502oo0sVJe69k+7wgUvcRdpT+HsEBHIUGFEf4/MSOWJwZkVccHwsTPWN7ovKWq1NmTcQtdrs1gVdcavLG8kts3ayKkZYnYBwJ4jXAPpddTAPymA==,iv:B1Kf+GQOtSWPEseeV1LHfAwlfs8oV5B0X/a0piHVF8Q=,tag:Rj8OkK3zF3DlKcmoSivj+Q==,type:str]
+    objstore.yml: ENC[AES256_GCM,data:KOBG6x9nVEykoqVgXZLuEXN3szAGhZB2s96olm9UxDKVx0a7Ctjao03LiZLeuASa1GSzvQscLqYbqjaacmkYXuTnB5t0f3yYYY4REiBq/HfuJMoFdDwmHnob8MMZ4mw6GQM7zAmpSppfQI6vyl7hdDgSS1AttANMP1GSUbI=,iv:PnpqgXM+3FkjoHvL/pFqHlk3lm1PI2msQNOIiXw0phs=,tag:h4Kfpw6KE/8HqRLsXm0JUA==,type:str]
 sops:
     kms: []
     gcp_kms: []
@@ -14,14 +14,14 @@ sops:
         - recipient: age1y8u0lcf95wxxgk6p5vzuv94z9jk0pmeznzmnl47pcf8a7yyffp4s9g3mew
           enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBJV3FWY3g5QUxZMWg5OVoz
-            YmpNZGl1VTJaTldhRlk2OENheHo0ajdGUmtnCkVlZGd2VmN0MUlnQWpyV1U1L253
-            alV6Rm1sUTRyR2k4S1BXcGZqdDYrNEUKLS0tIHRueTU1MkppVzhwR1daQk41VTBy
-            L2VlM055eGRvdUVqdElSNGRnc3RjajgK69ZNkd2KH4lTiNnhKdg4fkajoJ/wpkSD
-            aPsih3yHnKREFoLETC/fqmlWdVWMqsh42rucAJLRQ4zBxk6pt9ZJvQ==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBxcTRwTzBzOEFwRHY2UmND
+            b1M5bDBVMXVaK0J6cXNBL1QxWGNhckxQMG5nCnBhRFFnSkIrNjVZc2Z3Q3UxOVFp
+            VzRBbTArYVN3WkkzVkxqcis0TTlESWcKLS0tIFRKUVhia3BGMGNHMVJvK05qK0E4
+            dXFGUGxwUkE3R1ZMaDhLZnZndmMrZ2sKWCRLugzBEyv0aNxZ9H0QfXlbeUX7T6ct
+            9sWa2v6XCOARwtKrtvIbaqkIZnWSVlTegjyw7g9xb5sZpf6g/7Vvlg==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2023-02-26T16:41:33Z"
-    mac: ENC[AES256_GCM,data:6WHPcWEuVniZoCTeFYIWMpe2Zg9eMZKPrzwZsHYJRI1JHEfR3s8d25BYFxYyT7u99Rw+TS2WyneWE7/WccPNBZHagg18PB0dyUzNp5k1sQjENczO/bBnW7UUtDTIP+QEgupuwFfAOj1gQGvyYpOdxyqe0D/jX/h79lohWX23Ij8=,iv:nuA9vR2yWUx9JsA4r85aWnixTEmACfX6FFhJdtcE1vo=,tag:uT+7Z9M+8sGn9F0pRS92Cg==,type:str]
+    lastmodified: "2023-02-26T22:23:15Z"
+    mac: ENC[AES256_GCM,data:RhTHZ63/zN1IiwxJRVTVIKbwBob6reOYl/Xt5dHu+erIF0KzV2gsIJaqUQEVDFI1LoXvBoY7hLXnwN8LZ3aksKOhn+vI4Pj94qEcAMzVtia8EAX5elr7b8pX5K5tgWfiD4GaThE/szj0/HTfipv/2LPn1uvJEv+9qHqGlb23oH0=,iv:gmMqcYPgLKloN0MkVyZMNg+i7nCgA6Lb1EWtXFyoycY=,tag:d8O7vDKlygZZ76O43DvvvQ==,type:str]
     pgp: []
     encrypted_regex: ^(data|stringData)$
     version: 3.7.3

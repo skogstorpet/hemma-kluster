@@ -12,8 +12,8 @@ spec:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
   nfs:
-    server: 10.10.10.20
-    path: "/mnt/user/minio"
+    server: 10.10.10.10
+    path: "/nfsshare"
   mountOptions:
     - nfsvers=4.2
     - tcp
