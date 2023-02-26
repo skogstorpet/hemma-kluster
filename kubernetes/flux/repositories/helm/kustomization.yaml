@@ -14,6 +14,7 @@ resources:
   - ./kubernetes-dashboard.yaml
   - ./longhorn-charts.yaml
   - ./openhab-charts.yaml
+  - ./prometheus-community.yaml
   - ./metallb.yaml
   - ./metrics-server.yaml
   - ./stakater.yaml
