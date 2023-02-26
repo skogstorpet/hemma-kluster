@@ -48,8 +48,9 @@ spec:
         hosts:
           - emqx.${SECRET_DOMAIN}
         tls:
-          hosts:
-            - emqx.${SECRET_DOMAIN}
+          - secretName: tls.emqx
+            hosts:
+              - emqx.${SECRET_DOMAIN}
     persistence:
       enabled: true
       storageClass: longhorn
