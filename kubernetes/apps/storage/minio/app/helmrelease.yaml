@@ -1,42 +1,50 @@
 ---
+# yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/helmrelease_v2beta1.json
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: minio
-  namespace: storage
+  namespace: default
 spec:
+  interval: 15m
   chart:
     spec:
       chart: app-template
-      version: 1.3.1
+      version: 1.2.1
       sourceRef:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
-
+  maxHistory: 3
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
   values:
     controller:
       annotations:
         reloader.stakater.com/auto: "true"
-
     image:
       repository: quay.io/minio/minio
       tag: RELEASE.2023-01-25T00-19-54Z
-
     env:
-      TZ: America/Chicago
+      TZ: Europe/Stockholm
       MINIO_UPDATE: "off"
-      MINIO_PROMETHEUS_URL: http://kube-prometheus-stack-prometheus.monitoring:9090
+      MINIO_PROMETHEUS_URL: http://kube-prometheus-stack-prometheus.monitoring.svc.cluster.local:9090
       MINIO_PROMETHEUS_JOB_ID: minio
-      MINIO_BROWSER_REDIRECT_URL: https://minio.${SECRET_DOMAIN}
-      MINIO_SERVER_URL: https://s3.${SECRET_DOMAIN}
-
+      MINIO_BROWSER_REDIRECT_URL: https://minio.stromberg.uk
+      MINIO_SERVER_URL: https://s3.stromberg.uk
+      MINIO_API_CORS_ALLOW_ORIGIN: https://minio.stromberg.uk,https://s3.stromberg.uk
     envFrom:
       - secretRef:
           name: minio-secret
-
     args: ["server", "/data", "--console-address", ":9001"]
-
     service:
       main:
         enabled: true
@@ -46,7 +54,6 @@ spec:
           api:
             enabled: true
             port: &api-port 9000
-
     serviceMonitor:
       main:
         enabled: true
@@ -59,7 +66,6 @@ spec:
             bearerTokenSecret:
               name: minio-secret
               key: MINIO_PROMETHEUS_TOKEN
-
     probes:
       liveness: &probes
         enabled: true
@@ -75,15 +81,16 @@ spec:
       readiness: *probes
       startup:
         enabled: false
-
     ingress:
       main:
         enabled: true
         ingressClassName: nginx
         annotations:
+          nginx.ingress.kubernetes.io/whitelist-source-range: |
+            10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
           hajimari.io/icon: mdi:pail
         hosts:
-          - host: &console-host "{{ .Release.Name }}.${SECRET_DOMAIN}"
+          - host: &console-host "{{ .Release.Name }}.stromberg.uk"
             paths:
               - path: /
                 pathType: Prefix
@@ -92,20 +99,19 @@ spec:
         tls:
           - hosts:
               - *console-host
-            secretName: minio-console-tls
       s3:
         enabled: true
         ingressClassName: nginx
         annotations:
-          # cert-manager.io/cluster-issuer: "letsencrypt-production"
+          external-dns.alpha.kubernetes.io/target: ipv4.stromberg.uk
           nginx.ingress.kubernetes.io/proxy-connect-timeout: "180"
           nginx.ingress.kubernetes.io/proxy-body-size: 1024m
           nginx.ingress.kubernetes.io/proxy-request-buffering: "off"
           nginx.ingress.kubernetes.io/configuration-snippet: |
             chunked_transfer_encoding off;
-          # hajimari.io/enable: "true"
+          hajimari.io/enable: "false"
         hosts:
-          - host: &host-api "s3.${SECRET_DOMAIN}"
+          - host: &api-host s3.stromberg.uk
             paths:
               - path: /
                 pathType: Prefix
@@ -113,15 +119,18 @@ spec:
                   port: *api-port
         tls:
           - hosts:
-              - *host-api
-            secretName: minio-api-tls
-
+              - *api-host
+    podSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+      fsGroupChangePolicy: OnRootMismatch
+      supplementalGroups: [100]
     persistence:
       config:
         enabled: true
-        existingClaim: nfs-minio
+        existingClaim: minio-nfs
         mountPath: /data
-
     resources:
       requests:
         memory: 100Mi
