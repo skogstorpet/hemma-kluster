@@ -1,0 +1,9 @@
+# yamllint disable
+apiVersion: v1
+kind: Secret
+metadata:
+    name: minio
+    namespace: storage
+stringData:
+    MINIO_ROOT_USER: "${MINIO_USER}"
+    MINIO_ROOT_PASSWORD: "${MINIO_PASSWORD}"

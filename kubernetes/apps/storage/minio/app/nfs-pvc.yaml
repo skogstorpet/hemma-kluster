@@ -5,24 +5,30 @@ metadata:
   name: minio-nfs
 spec:
   capacity:
-    storage: 1Mi
-  accessModes: ["ReadWriteMany"]
+    storage: 2000Mi
+  accessModes:
+    - ReadWriteMany
   storageClassName: minio-nfs
   persistentVolumeReclaimPolicy: Retain
   nfs:
-    server: 10.10.10.20
-    path: /nfs/Apps/MinIO
-  # Note: The first two options are strictly for NFSv4.2
-  mountOptions: ["nfsvers=4.2", "nconnect=8", "hard", "noatime"]
+    server: "${NFS_SERVER}"
+    path: /volume3/kubernetes/minio
+  mountOptions:
+    - nfsvers=4.1
+    - nconnect=8
+    - hard
+    - noatime
+
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: minio-nfs
-  namespace: default
+  namespace: storage
 spec:
-  accessModes: ["ReadWriteMany"]
+  accessModes:
+    - ReadWriteMany
   storageClassName: minio-nfs
   resources:
     requests:
-      storage: 1Mi
+      storage: 2000Mi
