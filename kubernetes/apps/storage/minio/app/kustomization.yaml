@@ -4,4 +4,4 @@ kind: Kustomization
 resources:
   - helmrelease.yaml
   - nfs-pvc.yaml
-  - minio.sops.yaml
+  - secret.sops.yaml
