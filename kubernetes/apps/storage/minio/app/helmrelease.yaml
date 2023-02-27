@@ -26,7 +26,7 @@ spec:
   values:
     fullnameOverride: minio
     persistence:
-      existingClaim: minio
+      existingClaim: minio-nfs
     volumePermissions:
       enabled: true
     ingress:
