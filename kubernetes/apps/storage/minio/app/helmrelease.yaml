@@ -89,7 +89,7 @@ spec:
         enabled: true
         ingressClassName: nginx
         annotations:
-          external-dns.alpha.kubernetes.io/target: ipv4.{SECRET_PUBLIC_DOMAIN}
+          external-dns.alpha.kubernetes.io/target: ipv4.{SECRET_DOMAIN}
           cert-manager.io/cluster-issuer: "letsencrypt-production"
           nginx.ingress.kubernetes.io/proxy-connect-timeout: "180"
           nginx.ingress.kubernetes.io/proxy-body-size: 1024m
@@ -98,7 +98,7 @@ spec:
             chunked_transfer_encoding off;
           hajimari.io/enable: "false"
         hosts:
-          - host: &host-api "s3.${SECRET__DOMAIN}"
+          - host: &host-api "s3.${SECRET_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
