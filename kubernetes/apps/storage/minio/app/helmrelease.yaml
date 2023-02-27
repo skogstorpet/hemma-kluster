@@ -54,11 +54,6 @@ spec:
       prometheus.io/path: "/minio/v2/metrics/cluster"
       prometheus.io/port: "9000"
       reloader.stakater.com/auto: "true"
-    nodeSelector:
-      feature.node.kubernetes.io/custom-usb-backupdrive: "true"
     auth:
       rootUser: "admin"
       rootPassword: "Pax1106Pax"
-    metrics:
-      serviceMonitor:
-        enabled: "${MONITORING_PROMETHEUS}"
