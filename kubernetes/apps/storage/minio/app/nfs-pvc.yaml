@@ -2,35 +2,33 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: nfs-minio
-  namespace: storage
+  name: minio-nfs
 spec:
-  storageClassName: nfs-minio
   capacity:
-    storage: 1Mi
+    storage: 2000Mi
   accessModes:
     - ReadWriteMany
+  storageClassName: minio-nfs
   persistentVolumeReclaimPolicy: Retain
   nfs:
-    server: 10.10.10.10
-    path: "/nfsshare"
+    server: "10.10.10.10"
+    path: /nfs
   mountOptions:
-    - nfsvers=4.2
-    - tcp
-    - intr
+    - nfsvers=4.1
+    - nconnect=8
     - hard
     - noatime
-    - nodiratime
+
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: nfs-minio
+  name: minio-nfs
   namespace: storage
 spec:
   accessModes:
     - ReadWriteMany
-  storageClassName: nfs-minio
+  storageClassName: minio-nfs
   resources:
     requests:
-      storage: 1Mi
+      storage: 2000Mi
