@@ -32,6 +32,17 @@ spec:
     env:
       TZ: "${TIMEZONE}"
       MINIO_UPDATE: "off"
+      MINIO_ROOT_USER:
+        valueFrom:
+          secretKeyRef:
+            name: minio
+            key: root-user
+      MINIO_ROOT_PASSWORD:
+        valueFrom:
+          secretKeyRef:
+            name: minio
+            key: root-password
+      MINIO_PROMETHEUS_AUTH_TYPE: "public"
       MINIO_PROMETHEUS_URL: http://kube-prometheus-stacks-prometheus.monitoring:9090
       MINIO_PROMETHEUS_JOB_ID: minio
       MINIO_BROWSER_REDIRECT_URL: "https://minio.${SECRET_DOMAIN}"
