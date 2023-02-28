@@ -11,7 +11,7 @@ spec:
   storageClassName: minio-nfs
   persistentVolumeReclaimPolicy: Retain
   nfs:
-    server: "${SECRET_BACKUP_SERVER}"
+    server: "${NFS_SERVER}"
     path: /nfsshare/minio/k8s
   mountOptions:
     - nfsvers=4.2
