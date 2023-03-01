@@ -5,66 +5,67 @@ metadata:
   name: minio
   namespace: storage
 spec:
-  interval: 15m
+  interval: 5m
   chart:
     spec:
-      # renovate: registryUrl=https://charts.bitnami.com/bitnami
+      # renovate: registryUrl=https://charts.min.io/
       chart: minio
-      version: 11.10.12
+      version: 5.0.5
       sourceRef:
         kind: HelmRepository
-        name: bitnami
+        name: minio-charts
         namespace: flux-system
-      interval: 15m
-  install:
-    createNamespace: true
-    remediation:
-      retries: 5
-  upgrade:
-    remediation:
-      retries: 5
+      interval: 5m
   values:
-    extraEnvVars:
-      - name: TZ
-        value: "${TIMEZONE}" #Tidzon
-      - name: MINIO_PROMETHEUS_URL
-        value: http://kube-prometheus-stack-prometheus.monitoring:9090
-      - name: MINIO_PROMETHEUS_JOB_ID
-        value: minio
-      - name: MINIO_UPDATE
-        value: "off"
-      - name: MINIO_BROWSER_REDIRECT_URL
-        value: "https://minio.${SECRET_DOMAIN}"
-      - name: MINIO_SERVER_URL
-        value: "https://s3.${SECRET_DOMAIN}"
-    auth:
-      existingSecret: minio
-    ingress:
-      enabled: true
-      ingressClassname: "nginx"
-      hostname: &consoleHost "minio.${SECRET_DOMAIN}"
-      tls: true
-      extraTls:
-        - hosts:
-            - *consoleHost
-    apiIngress:
-      enabled: true
-      ingressClassname: "nginx"
-      hostname: &apiHost "s3.${SECRET_DOMAIN}"
-      tls: true
-      extraTls:
-        - hosts:
-            - *apiHost
-    podSecurityContext:
-      enabled: true
-      fsGroup: 100
-    containerSecurityContext:
-      enabled: true
-      runAsUser: 568
-      runAsNonRoot: true
+    image:
+      repository: quay.io/minio/minio
+      tag: RELEASE.2023-01-18T04-36-38Z
+      pullPolicy: IfNotPresent
+    mcImage:
+      repository: quay.io/minio/mc
+      tag: RELEASE.2023-01-11T03-14-16Z
+      pullPolicy: IfNotPresent
+    mode: standalone
+    rootUser: admin
+    rootPassword: Pax1106Pax
+    users:
+      accessKey: krister
+      secretKey: Pax1106Pax
+      policy: readwrite
     persistence:
       enabled: true
-      existingClaim: minio-nfs
-    prometheus:
-      servicemonitor:
+      existingClaim: "minio-nfs"
+    ingress:
+      enabled: true
+      annotations:
+        nginx.ingress.kubernetes.io/proxy-body-size: 40m
+        nginx.org/client-max-body-size: 40m
+      ingressClassName: nginx-external
+      hosts:
+        - s3.${SECRET_DOMAIN}
+      tls:
+        - secretName: mastodon-minio-cert
+          hosts:
+            - s4.${SECRET_DOMAIN}
+    consoleIngress:
+      enabled: true
+      hosts:
+        - minio.${SECRET_DOMAIN}
+      tls:
+        - secretName: mastodon-minio-console-cert
+          hosts:
+            - minio.${SECRET_DOMAIN}
+    securityContext:
+      enabled: false
+    resources:
+      requests:
+        memory: 350Mi
+        cpu: 25m
+      limits:
+        memory: 1000Mi
+    tolerations:
+      - key: "arm"
+        operator: "Exists"
+    metrics:
+      serviceMonitor:
         enabled: true
