@@ -57,10 +57,11 @@ spec:
             - *apiHost
     podSecurityContext:
       enabled: true
-      fsGroup: 100
+      fsGroup: 1001
     containerSecurityContext:
       enabled: true
-      runAsUser: 0
+      runAsUser: 1001
+      fsGroup: 1001
       runAsNonRoot: false
     persistence:
       enabled: true
