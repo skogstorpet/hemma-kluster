@@ -61,7 +61,6 @@ spec:
     containerSecurityContext:
       enabled: true
       runAsUser: 1001
-      fsGroup: 1001
       runAsNonRoot: true
     persistence:
       enabled: true
