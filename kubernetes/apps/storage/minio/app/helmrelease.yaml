@@ -68,29 +68,29 @@ spec:
           api:
             enabled: true
             port: &port-api 9000
-    serviceMonitor:
-      main:
-        enabled: true
-        endpoints:
-          - port: api
-            scheme: http
-            path: /minio/v2/metrics/cluster
-            interval: 1m
-            scrapeTimeout: 10s
-            bearerTokenSecret:
-              name: minio-prometheus
-              key: token
+    # serviceMonitor:
+     #  main:
+       # enabled: true
+       #  endpoints:
+         #  - port: api
+           # scheme: http
+            # path: /minio/v2/metrics/cluster
+            # interval: 1m
+            # scrapeTimeout: 10s
+            # bearerTokenSecret:
+            # name: minio-prometheus
+            #  key: token
     ingress:
       main:
         enabled: true
         ingressClassName: "nginx"
         annotations:
-          cert-manager.io/cluster-issuer: letsencrypt-production
-          hajimari.io/appName: "Minio Console"
+          # cert-manager.io/cluster-issuer: letsencrypt-production
+          hajimari.io/group: "storage"
           hajimari.io/enable: "true"
           hajimari.io/icon: mdi:pail
         hosts:
-          - host: &host-console "{{ .Release.Name }}.${SECRET_DOMAIN}"
+          - host: &host-console "minio.${SECRET_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
@@ -99,15 +99,15 @@ spec:
         tls:
           - hosts:
               - *host-console
-            secretName: minio-main-tls
+            secretName: minio-tls
       s3:
         enabled: true
         ingressClassName: "nginx"
         annotations:
           cert-manager.io/cluster-issuer: letsencrypt-production
           external-dns.home.arpa/enabled: "true"
-          nginx.ingress.kubernetes.io/proxy-connect-timeout: "300"
-          nginx.ingress.kubernetes.io/proxy-body-size: 5000m
+          nginx.ingress.kubernetes.io/proxy-connect-timeout: "180"
+          nginx.ingress.kubernetes.io/proxy-body-size: 1024m
           nginx.ingress.kubernetes.io/proxy-request-buffering: "off"
           nginx.ingress.kubernetes.io/configuration-snippet: |
             chunked_transfer_encoding off;
@@ -122,7 +122,7 @@ spec:
         tls:
           - hosts:
               - *host-api
-            secretName: minio-s3-tls
+            secretName: s3-tls
     podSecurityContext:
       runAsUser: 1001
       runAsGroup: 1001
