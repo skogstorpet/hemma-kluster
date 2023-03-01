@@ -60,8 +60,8 @@ spec:
       fsGroup: 100
     containerSecurityContext:
       enabled: true
-      runAsUser: 568
-      runAsNonRoot: true
+      runAsUser: 0
+      runAsNonRoot: false
     persistence:
       enabled: true
       existingClaim: minio-nfs
