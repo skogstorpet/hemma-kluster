@@ -62,7 +62,7 @@ spec:
       enabled: true
       runAsUser: 1001
       fsGroup: 1001
-      runAsNonRoot: false
+      runAsNonRoot: true
     persistence:
       enabled: true
       existingClaim: minio-nfs
