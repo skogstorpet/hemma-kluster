@@ -29,9 +29,9 @@ spec:
     rootUser: admin #test
     rootPassword: Pax1106Pax
     users:
-      accessKey: krister
-      secretKey: Pax1106Pax
-      policy: readwrite
+      - accessKey: krister
+        secretKey: Pax1106Pax
+        policy: readwrite
     persistence:
       enabled: true
       existingClaim: "minio-nfs"
