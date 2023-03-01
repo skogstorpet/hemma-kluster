@@ -26,7 +26,7 @@ spec:
   values:
     extraEnvVars:
       - name: TZ
-        value: "${TIMEZONE}"
+        value: "${TIMEZONE}" #Tidzon
       - name: MINIO_PROMETHEUS_URL
         value: http://kube-prometheus-stack-prometheus.monitoring:9090
       - name: MINIO_PROMETHEUS_JOB_ID
@@ -38,7 +38,7 @@ spec:
       - name: MINIO_SERVER_URL
         value: "https://s3.${SECRET_DOMAIN}"
     auth:
-      existingSecret: minio-creds
+      existingSecret: minio
     ingress:
       enabled: true
       ingressClassname: "nginx"
