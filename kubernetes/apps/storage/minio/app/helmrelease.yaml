@@ -26,12 +26,12 @@ spec:
       tag: RELEASE.2023-01-11T03-14-16Z
       pullPolicy: IfNotPresent
     mode: standalone
-    rootUser: admin #test
+    rootUser: admin
     rootPassword: Pax1106Pax
-    users:
-      - accessKey: krister
-        secretKey: Pax1106Pax
-        policy: readwrite
+    # users:
+    #  - accessKey: krister
+    #    secretKey: Pax1106Pax
+    #    policy: readwrite
     persistence:
       enabled: true
       existingClaim: "minio-nfs"
