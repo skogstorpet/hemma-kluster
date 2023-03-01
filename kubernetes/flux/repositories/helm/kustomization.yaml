@@ -14,7 +14,6 @@ resources:
   - ./k8s-gateway.yaml
   - ./kubernetes-dashboard.yaml
   - ./longhorn-charts.yaml
-  - ./minio-charts.yaml
   - ./openhab-charts.yaml
   - ./prometheus-community.yaml
   - ./metallb.yaml
