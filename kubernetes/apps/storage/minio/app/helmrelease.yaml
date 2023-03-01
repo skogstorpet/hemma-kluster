@@ -46,7 +46,7 @@ spec:
       tls:
         - secretName: mastodon-minio-cert
           hosts:
-            - s4.${SECRET_DOMAIN}
+            - s3.${SECRET_DOMAIN}
     consoleIngress:
       enabled: true
       hosts:
