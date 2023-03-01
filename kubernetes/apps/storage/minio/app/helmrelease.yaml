@@ -82,6 +82,7 @@ spec:
         enabled: true
         ingressClassName: "nginx"
         annotations:
+          cert-manager.io/cluster-issuer: letsencrypt-production
           hajimari.io/appName: "Minio Console"
           hajimari.io/enable: "true"
           hajimari.io/icon: mdi:pail
@@ -95,15 +96,19 @@ spec:
         tls:
           - hosts:
               - *host-console
+            secretName: minio-main-tls
       s3:
         enabled: true
         ingressClassName: "nginx"
         annotations:
+          cert-manager.io/cluster-issuer: letsencrypt-production
+          external-dns.home.arpa/enabled: "true"
           nginx.ingress.kubernetes.io/proxy-connect-timeout: "300"
           nginx.ingress.kubernetes.io/proxy-body-size: 5000m
           nginx.ingress.kubernetes.io/proxy-request-buffering: "off"
           nginx.ingress.kubernetes.io/configuration-snippet: |
             chunked_transfer_encoding off;
+          hajimari.io/enable: "false"
         hosts:
           - host: &host-api "s3.${SECRET_DOMAIN}"
             paths:
@@ -114,6 +119,7 @@ spec:
         tls:
           - hosts:
               - *host-api
+            secretName: minio-s3-tls
     podSecurityContext:
       runAsUser: 1001
       runAsGroup: 1001
