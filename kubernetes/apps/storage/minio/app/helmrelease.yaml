@@ -43,7 +43,7 @@ spec:
       MINIO_SERVER_URL: https://s3.${SECRET_DOMAIN}
     envFrom:
       - secretRef:
-          name: minio-secret
+          name: minio
     args: ["server", "/data", "--console-address", ":9001"]
     service:
       main:
