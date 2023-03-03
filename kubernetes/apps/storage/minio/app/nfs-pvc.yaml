@@ -11,15 +11,13 @@ spec:
   storageClassName: minio-nfs
   persistentVolumeReclaimPolicy: Retain
   nfs:
-    server: 10.10.10.10 #Proxmox
-    path: /nfsshare/minio/k8s
+    server: "10.10.10.50"
+    path: /mnt/data/Apps/Minio
   mountOptions:
-    - nfsvers=4
+    - nfsvers=4.2
     - nconnect=8
     - hard
     - noatime
-    - noac
-
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
