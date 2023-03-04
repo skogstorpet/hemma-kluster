@@ -28,7 +28,7 @@ spec:
     defaultSettings:
       backupstorePollInterval: 300
       defaultDataPath: /mnt/longhorn
-      backupTarget: nfs://10.10.10.51:/mnt/data/Backup/K8S
+      backupTarget: nfs://10.10.10.50:/mnt/data/Backup/K8S
       defaultDataLocality: best-effort
       defaultReplicaCount: 3
       defaultLonghornStaticStorageClass: longhorn
