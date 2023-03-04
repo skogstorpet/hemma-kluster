@@ -82,11 +82,23 @@ spec:
     snapshotsEnabled: false
     upgradeCRDs: false
     cleanUpCRDs: false
-    deployRestic: false
     kubectl:
       image:
         repository: ghcr.io/onedr0p/kubernetes-kubectl
         tag: 1.26.2@sha256:ac57906914821d74d65f880984c1af869a0bb33758d0701f227cf294e3665de5
+    deployRestic: true
+    restic:
+      podVolumePath: /var/lib/kubelet/pods
+      privileged: false
+      tolerations:
+        - key: "node-role.kubernetes.io/master"
+          operator: "Exists"
+      resources:
+        requests:
+          memory: 200Mi
+          cpu: 15m
+        limits:
+          memory: 3000Mi
     resources:
       requests:
         memory: 300Mi
