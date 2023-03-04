@@ -9,11 +9,13 @@ resources:
   - ./grafana-charts.yaml
   - ./hajimari.yaml
   - ./ingress-nginx.yaml
+  - ./intel.yaml
   - ./jetstack.yaml
   - ./k8s-at-home-charts.yaml
   - ./k8s-gateway.yaml
   - ./kubernetes-dashboard.yaml
   - ./longhorn-charts.yaml
+  - ./node-feature-discovery.yaml
   - ./openhab-charts.yaml
   - ./prometheus-community.yaml
   - ./metallb.yaml
