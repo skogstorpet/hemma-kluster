@@ -32,7 +32,7 @@ spec:
         config:
           region: eu-west-1
           s3ForcePathStyle: true
-          s3Url: http://192.168.69.69:9000
+          s3Url: https://s3.${SECRET_DOMAIN}
       resticTimeout: 4h
     credentials:
       existingSecret: velero-s3-secret
