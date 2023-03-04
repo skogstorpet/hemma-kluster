@@ -15,12 +15,34 @@ spec:
         name: vmware-tanzu-charts
         namespace: flux-system
       interval: 5m
+  install:
+    crds: Create
+    remediation:
+      retries: 3
+  upgrade:
+    crds: CreateReplace
+    remediation:
+      retries: 3
+      remediateLastFailure: true
+  rollback:
+    timeout: 10m
+    recreate: true
   values:
     annotations:
       secret.reloader.stakater.com/reload: velero-s3-secret
-   #  image:
-   #   repository: velero/velero
-   #   tag: v1.10.0
+    image:
+      repository: velero/velero
+      tag: v1.10.1
+    initContainers:
+      - name: velero-plugin-for-aws
+        image: velero/velero-plugin-for-aws:v1.6.1
+        volumeMounts:
+          - mountPath: /target
+            name: plugins
+    backupsEnabled: true
+    snapshotsEnabled: true
+    deployNodeAgent: true
+    upgradeCRDs: true
     configuration:
       extraEnvVars:
         TZ: "Europe/Stockholm"
@@ -34,15 +56,10 @@ spec:
           s3ForcePathStyle: true
           s3Url: http://minio.storage.svc:9000
           publicUrl: https://s3.${SECRET_DOMAIN}
-      fsBackupTimeout: 4h
-    initContainers:
-      - name: velero-plugin-for-aws
-        image: velero/velero-plugin-for-aws:v1.6.1
-        imagePullPolicy: IfNotPresent
-        volumeMounts:
-          - mountPath: /target
-            name: plugins
-    deployNodeAgent: true
+      volumeSnapshotLocation:
+        name: aws
+        config:
+          region: eu-west-1
     credentials:
       existingSecret: velero-s3-secret
     schedules:
@@ -79,27 +96,20 @@ spec:
             for: 15m
             labels:
               severity: warning
-    backupsEnabled: true
-    snapshotsEnabled: false
-    upgradeCRDs: false
-    cleanUpCRDs: false
-    kubectl:
-      image:
-        repository: ghcr.io/onedr0p/kubernetes-kubectl
-        tag: 1.26.2@sha256:ac57906914821d74d65f880984c1af869a0bb33758d0701f227cf294e3665de5
-    deployRestic: false
-    # restic:
-    #  podVolumePath: /var/lib/kubelet/pods
-    #  privileged: false
-    #  tolerations:
-    #    - key: "node-role.kubernetes.io/master"
-    #      operator: "Exists"
-    #  resources:
-    #    requests:
-    #      memory: 200Mi
-    #      cpu: 15m
-    #    limits:
-    #      memory: 3000Mi
+    nodeAgent:
+      podVolumePath: /var/lib/kubelet/pods
+      privileged: false
+      tolerations:
+        - key: "amd64"
+          operator: "Exists"
+        - key: "node-role.kubernetes.io/master"
+          operator: "Exists"
+      resources:
+        requests:
+          memory: 200Mi
+          cpu: 15m
+        limits:
+          memory: 3000Mi
     resources:
       requests:
         memory: 300Mi
