@@ -97,7 +97,7 @@ spec:
         enabled: true
         type: nfs
         server: "nas.${SECRET_DOMAIN}"
-        path: /mnt/borg/share
+        path: /mnt/data/Kameror
         mountPath: /media
         readOnly: false
       usb:
