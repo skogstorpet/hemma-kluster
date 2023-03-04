@@ -28,7 +28,8 @@ spec:
     defaultSettings:
       backupstorePollInterval: 300
       defaultDataPath: /mnt/longhorn
-      backupTarget: nfs://10.10.10.50:/mnt/data/Backup/K8S
+      backupTarget: s3://minio@eu-west-1/
+      backupTargetCredentialSecret: longhorn-secret
       defaultDataLocality: best-effort
       defaultReplicaCount: 3
       defaultLonghornStaticStorageClass: longhorn
