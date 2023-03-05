@@ -79,10 +79,10 @@ spec:
         requiredDuringSchedulingIgnoredDuringExecution:
           nodeSelectorTerms:
             - matchExpressions:
-                - key: feature.node.kubernetes.io/usb-ff_18d1_9302.present
+                - key: usb
                   operator: In
                   values:
-                    - "true"
+                    - "coral"
     resources:
       requests:
         cpu: 295m
