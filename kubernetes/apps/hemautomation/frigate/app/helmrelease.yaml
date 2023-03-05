@@ -96,7 +96,7 @@ spec:
       media:
         enabled: true
         type: nfs
-        server: "nas.${SECRET_DOMAIN}"
+        server: "10.10.10.50"
         path: /mnt/data/Kameror
         mountPath: /media
         readOnly: false
