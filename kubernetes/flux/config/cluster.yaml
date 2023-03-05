@@ -5,13 +5,15 @@ metadata:
   name: home-kubernetes
   namespace: flux-system
 spec:
-  interval: 10m
-  # 6a: Change this to your user and repo names
-  url: ssh://git@github.com/skogstorpet/hemma-kluster
+  interval: 30m
   ref:
     branch: main
-  secretRef:
-    name: github-deploy-key
+  url: "https://github.com/skogstorpet/hemma-kluster"
+  ignore: |
+    # exclude all
+    /*
+    # include kubernetes directory
+    !/kubernetes
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
