@@ -79,7 +79,7 @@ spec:
         requiredDuringSchedulingIgnoredDuringExecution:
           nodeSelectorTerms:
             - matchExpressions:
-                - key: feature.node.kubernetes.io/custom-coral-tpu
+                - key: feature.node.kubernetes.io/usb-ff_18d1_9302
                   operator: In
                   values:
                     - "true"
