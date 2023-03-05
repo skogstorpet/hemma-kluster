@@ -166,10 +166,10 @@ spec:
       enabled: true
     ingress:
       enabled: true
-      ingressClassName: "nginx"
+      ingressClassName: nginx
       annotations:
-        traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-        cert-manager.io/cluster-issuer: letsencrypt-production
+        external-dns.alpha.kubernetes.io/target: ipv4.stromberg.uk
+        hajimari.io/icon: mdi:home-assistant
       hosts:
         - "grafana.${SECRET_DOMAIN}"
       tls:
