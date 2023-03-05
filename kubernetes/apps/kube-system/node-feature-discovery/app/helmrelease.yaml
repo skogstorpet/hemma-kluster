@@ -57,7 +57,7 @@ spec:
           - name: "coral-tpu"
             matchOn:
               - usbId:
-                  vendor: ["1a6e", "18d1"]
+                  vendor: ["9302", "18d1"]
           - name: "zwave"
             matchOn:
               - usbId:
