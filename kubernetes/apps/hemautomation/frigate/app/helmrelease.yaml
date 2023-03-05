@@ -72,17 +72,8 @@ spec:
           - secretName: "tls.{{ .Release.Name }}"
             hosts:
               - *host
-    podAnnotations:
-      configmap.reloader.stakater.com/reload: "frigate-config"
-    affinity:
-      nodeAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          nodeSelectorTerms:
-            - matchExpressions:
-                - key: feature.node.kubernetes.io/custom-coral-tpu
-                  operator: In
-                  values:
-                    - "true"
+    nodeSelector:
+      usb: coral
     resources:
       requests:
         cpu: 295m
