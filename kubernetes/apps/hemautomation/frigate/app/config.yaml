@@ -43,10 +43,10 @@ ffmpeg:
     - yuv420p
 
 cameras:
-  lounge:
+  garage:
     ffmpeg:
       inputs:
-        - path: rtsp://rtsp:{FRIGATE_RTSP_PASSWORD}@10.30.0.111:554/av_stream/ch0
+        - path: rtsp://admin:{FRIGATE_RTSP_PASSWORD}@10.10.90.54/Streaming/Channels/101
           roles:
             - detect
             - rtmp
@@ -90,19 +90,17 @@ cameras:
       quality: 100
       height: 500
 
-  driveway:
+  garaget:
     ffmpeg:
       inputs:
-        - path: rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@10.30.0.242:554/h264Preview_01_sub
+        - path: rtsp://admin:{FRIGATE_RTSP_PASSWORD}@10.10.90.55/Streaming/Channels/101
           roles:
             - detect
-        - path: rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@10.30.0.242:554/h264Preview_01_main
-          roles:
             - rtmp
             - record
     detect:
-      width: 640
-      height: 360
+      width: 1920
+      height: 1080
       fps: 7
     snapshots:
       enabled: true
@@ -118,19 +116,56 @@ cameras:
         retain:
           default: 14
 
-  office:
+  framsida:
     ffmpeg:
       inputs:
-        - path: rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@10.30.0.244:554/h264Preview_01_sub
+        - path: rtsp://admin:{FRIGATE_RTSP_PASSWORD}@10.10.90.52/Streaming/Channels/101
           roles:
             - detect
-        - path: rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@10.30.0.244:554/h264Preview_01_main
-          roles:
             - rtmp
             - record
     detect:
-      width: 640
-      height: 360
+      width: 1920
+      height: 1080
+      fps: 7
+      stationary:
+        interval: 10
+        threshold: 70
+        max_frames:
+          default: 3000
+          objects:
+            person: 1000
+    snapshots:
+      enabled: false
+      timestamp: false
+      bounding_box: true
+      crop: false
+      retain:
+        default: 1
+    record:
+      enabled: false
+      retain_days: 0
+      events:
+        retain:
+          default: 14
+    mqtt:
+      timestamp: false
+      bounding_box: false
+      crop: true
+      quality: 100
+      height: 500
+
+  baksida:
+    ffmpeg:
+      inputs:
+        - path: rtsp://admin:{FRIGATE_RTSP_PASSWORD}@10.10.90.51/Streaming/Channels/101
+          roles:
+            - detect
+            - rtmp
+            - record
+    detect:
+      width: 1920
+      height: 1080
       fps: 7
       stationary:
         interval: 10
