@@ -89,7 +89,7 @@ spec:
     #  hostPath: /dev/ttyACM0
 
     nodeSelector:
-      openhab: true
+      zwave: gen5
 
     # nodeSelector:
     #  disk: block
