@@ -82,11 +82,11 @@ spec:
             path: conf
           - mountPath: /openhab/userdata
             path: userdata
-    # Z-Stick gen5
-    usb:
-      enabled: true
-      type: hostPath
-      hostPath: /dev/ttyACM0
+      # Z-Stick gen5
+      usb:
+        enabled: true
+        type: hostPath
+        hostPath: /dev/ttyACM0
 
     nodeSelector:
       zwave: gen5
