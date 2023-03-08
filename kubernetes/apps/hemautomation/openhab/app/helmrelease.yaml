@@ -84,7 +84,7 @@ spec:
             path: userdata
     # Z-Stick gen5
     usb:
-      enabled: false
+      enabled: true
       type: hostPath
       hostPath: /dev/ttyACM0
 
