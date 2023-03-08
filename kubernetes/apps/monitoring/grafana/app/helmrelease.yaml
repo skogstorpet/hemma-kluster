@@ -10,32 +10,36 @@ spec:
     spec:
       # renovate: registryUrl=https://grafana.github.io/helm-charts
       chart: grafana
-      version: 6.50.5
+      version: 6.51.5
       sourceRef:
         kind: HelmRepository
         name: grafana-charts
         namespace: flux-system
       interval: 5m
-  install:
-    createNamespace: true
-    remediation:
-      retries: 5
-  upgrade:
-    remediation:
-      retries: 5
   values:
-    ​deploymentStrategy​:
-      type​: Recreate
     replicas: 1
     env:
       GF_EXPLORE_ENABLED: true
       GF_PANELS_DISABLE_SANITIZE_HTML: true
       GF_LOG_FILTERS: rendering:debug
+      GF_DATE_FORMATS_USE_BROWSER_LOCALE: true
       GF_DATE_FORMATS_FULL_DATE: "MMM Do, YYYY hh:mm:ss a"
-    adminPassword: "${SUPER_SECRET_GRAFANA_PASSWORD}"
+      GF_DATE_FORMATS_INTERVAL_SECOND: "hh:mm:ss a"
+      GF_DATE_FORMATS_INTERVAL_MINUTE: "hh:mm a"
+      GF_DATE_FORMATS_INTERVAL_HOUR: "DD/MM hh:mm a"
+      GF_DATE_FORMATS_INTERVAL_DAY: "DD/MM"
+      GF_DATE_FORMATS_INTERVAL_MONTH: "MM-YYYY"
+      GF_DATE_FORMATS_INTERVAL_YEAR: "YYYY"
+      VAR_BLOCKY_URL: "http://blocky.networking.svc.cluster.local:4000"
+    adminPassword: "${SECRET_GRAFANA_PASSWORD}"
     grafana.ini:
+      orgs:
+        - id: 1
+          name: STROMBERG.
+        - id: 2
+          name: k8s
       server:
-        root_url: "https://grafana.${SECRET_DOMAIN}"
+        root_url: "https://grafana.stromberg.uk"
       paths:
         data: /var/lib/grafana/data
         logs: /var/log/grafana
@@ -43,114 +47,95 @@ spec:
         provisioning: /etc/grafana/provisioning
       analytics:
         check_for_updates: false
+        reporting_enabled: false
       log:
         mode: console
       grafana_net:
         url: https://grafana.net
-      auth.basic:
-        disable_login_form: false
+      auth:
+        signout_redirect_url: https://id.stromberg.uk/application/o/grafana/end-session/
+        disable_login_form: true
+        oauth_auto_login: true
+      auth.anonymous:
+        enabled: true
+        org_name: STROMBERG.
+        org_role: Viewer
+        hide_version: true
+      auth.generic_oauth:
+        enabled: true
+        client_id: d1a7ff96ee7113d80a1b2a6d935a91f050856fcc
+        client_secret: ${SECRET_GRAFANA_AUTHENTIK_OAUTH_CLIENT}
+        scopes: openid email profile
+        auth_url: https://id.stromberg.uk/application/o/authorize/
+        token_url: https://id.stromberg.uk/application/o/token/
+        api_url: https://id.stromberg.uk/application/o/userinfo/
+        # Optionally map user groups to Grafana roles
+        role_attribute_path: contains(groups[*], 'Grafana Admins') && 'Admin' || contains(groups[*], 'Grafana Editors') && 'Editor' || 'Viewer'
     dashboardProviders:
       dashboardproviders.yaml:
         apiVersion: 1
         providers:
           - name: "default"
-            orgId: 1
-            folder: ""
+            folder: "public"
             type: file
             disableDeletion: false
             editable: true
             options:
               path: /var/lib/grafana/dashboards/default
+          - name: "k8s"
+            folder: "k8s"
+            type: file
+            disableDeletion: false
+            editable: true
+            options:
+              path: /var/lib/grafana/dashboards/k8s
     datasources:
       datasources.yaml:
         apiVersion: 1
-        # list of datasources that should be deleted from the database
-        deleteDatasources:
-          - name: Loki
-            orgId: 1
         datasources:
           - name: Prometheus
             type: prometheus
             access: proxy
-            url: http://thanos-query:9090/
             isDefault: true
+            url: http://prom-prometheus:9090/
+          - name: InfluxDB
+            type: influxdb
+            access: proxy
+            url: "https://influx.${SECRET_DOMAIN}"
+            secureJsonData:
+              token: ${SECRET_GRAFANA_OUTSIDE_INFLUX_TOKEN}
+            jsonData:
+              version: Flux
+              organization: default
+              defaultBucket: openhab
+              tlsSkipVerify: true
           - name: Loki
             type: loki
             access: proxy
-            url: http://loki:3100
+            url: http://loki-gateway.monitoring.svc.cluster.local:80
     dashboards:
       default:
-        # Ref: https://grafana.com/grafana/dashboards/13502
-        minio:
-          gnetId: 13502
-          revision: 10
-          datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/11315
-        unifi-client-insights:
-          gnetId: 11315
-          revision: 8
-          datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/11311
-        unifi-network-sites:
-          gnetId: 11311
-          revision: 4
-          datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/11314
-        unifi-uap-insights:
-          gnetId: 11314
-          revision: 9
-          datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/11312
-        unifi-usw-insights:
-          gnetId: 11312
-          revision: 8
-          datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/13665
-        proxmox:
-          gnetId: 10347
-          revision: 3
-          datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/10347
+        electricity:
+          url: https://raw.githubusercontent.com/samip5/k8s-cluster/main/cluster/apps/monitoring/grafana/dashboards/electricity_dash.json
+          datasource: InfluxDB
+        zigbee:
+          url: https://raw.githubusercontent.com/samip5/k8s-cluster/main/cluster/apps/monitoring/grafana/dashboards/zigbee_dash.json
+          datasource: InfluxDB
         speedtest:
-          gnetId: 13665
-          revision: 1
+          url: https://raw.githubusercontent.com/samip5/k8s-cluster/main/cluster/apps/monitoring/grafana/dashboards/speedtest_exporter.json
           datasource: Prometheus
-        air-gradient:
-          url: https://raw.githubusercontent.com/Kashalls/home-cluster/main/cluster/apps/monitoring/grafana/dashboard/airgradient-grafana.json
-          datasource: Prometheus
+      k8s:
+        # Ref: https://grafana.com/grafana/dashboards/2842
         flux-cluster:
-          url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/grafana/dashboards/cluster.json
+          url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/monitoring-config/dashboards/cluster.json
           datasource: Prometheus
         flux-control-plane:
-          url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/grafana/dashboards/control-plane.json
+          url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/monitoring-config/dashboards/control-plane.json
           datasource: Prometheus
-        calico-felix:
-          gnetId: 12175
-          revision: 5
-          datasource: Prometheus
-        nut:
-          gnetId: 14104
-          revision: 2
-          datasource: Prometheus
-        synology-nas:
-          gnetId: 14284
-          revision: 9
-          datasource: Prometheus
-        traefik-ingress:
-          datasource: Prometheus
-          gnetId: 4475
-          revision: 5
-        longhorn:
-          datasource: Prometheus
-          gnetId: 13032
-          revision: 6
     sidecar:
       dashboards:
         enabled: true
         searchNamespace: ALL
-        folderAnnotation: grafana_folder
-        provider:
-          foldersFromFilesStructure: true
       datasources:
         enabled: true
         searchNamespace: ALL
@@ -161,24 +146,23 @@ spec:
       - vonage-status-panel
       - grafana-worldmap-panel
       - grafana-clock-panel
-      - cloudflare-app
+      - alexanderzobnin-zabbix-app
     serviceMonitor:
       enabled: true
     ingress:
       enabled: true
-      ingressClassName: nginx
+      ingressClassName: "nginx"
       annotations:
-        external-dns.alpha.kubernetes.io/target: ipv4.stromberg.uk
-        hajimari.io/icon: mdi:home-assistant
+        external-dns.home.arpa/enabled: "true"
+        external-dns.target/enabled: "true"
+        external-dns-cf/is-dns-public: "true"
       hosts:
-        - "grafana.${SECRET_DOMAIN}"
+        - "grafana.stromberg.uk"
       tls:
         - hosts:
-            - "grafana.${SECRET_DOMAIN}"
-          secretName: grafana
+            - "grafana.stromberg.uk"
     serviceAccount:
       create: true
       autoMount: true
     persistence:
-      enabled: true
-      existingClaim: grafana-config-longhorn
+      enabled: false

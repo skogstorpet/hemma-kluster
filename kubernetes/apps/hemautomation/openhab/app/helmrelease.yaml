@@ -81,9 +81,17 @@ spec:
             path: conf
           - mountPath: /openhab/userdata
             path: userdata
+    usb:
+      enabled: true
+      type: hostPath
+      hostPath: /dev/ttyACM0
+      hostPathType: CharDevice
 
     nodeSelector:
-      disk: block
+      openhab: true
+
+    # nodeSelector:
+    #  disk: block
     # -- Configures the probes for the main Pod.
     # @default -- See values.yaml
     probes:
