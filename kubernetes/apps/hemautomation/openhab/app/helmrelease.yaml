@@ -84,10 +84,9 @@ spec:
             path: userdata
     # Z-Stick gen5
     usb:
-      enabled: true
+      enabled: false
       type: hostPath
       hostPath: /dev/ttyACM0
-      hostPathType: CharDevice
 
     nodeSelector:
       openhab: true
