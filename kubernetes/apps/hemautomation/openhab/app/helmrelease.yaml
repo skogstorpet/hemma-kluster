@@ -31,8 +31,8 @@ spec:
     # @default -- See below
     env:
       # -- Set the container timezone
-      TZ: UTC
-
+      TZ: Europe/Stockholm
+      EXTRA_JAVA_OPTS: -Dgnu.io.rxtx.SerialPorts=/dev/ttyACM0
       # -- Set the correct user id
       USER_ID: 9001
       # -- Set the correct group id
