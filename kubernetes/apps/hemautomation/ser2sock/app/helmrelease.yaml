@@ -39,6 +39,10 @@ spec:
         mountPath: /dev/ttyACM0
         hostPath: /dev/ttyACM0
         # hostPathType: CharDevice
+
+    nodeSelector:
+      zwave: gen5
+
     resources:
       requests:
         memory: 50Mi
