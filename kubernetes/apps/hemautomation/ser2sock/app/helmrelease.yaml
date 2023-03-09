@@ -19,7 +19,7 @@ spec:
   values:
     image:
       repository: tenstartups/ser2sock
-      tag: latest
+      tag: amd64
       imagePullPolicy: Always
     env:
       TZ: "Europe/Stockholm"
