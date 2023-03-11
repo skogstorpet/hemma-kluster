@@ -17,6 +17,7 @@ resources:
   - ./longhorn-charts.yaml
   - ./node-feature-discovery.yaml
   - ./openhab-charts.yaml
+  - ./cloudnative-pg-charts.yaml
   - ./prometheus-community.yaml
   - ./metallb.yaml
   - ./metrics-server.yaml
