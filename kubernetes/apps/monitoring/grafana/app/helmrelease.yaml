@@ -64,7 +64,7 @@ spec:
             editable: true
             options:
               path: /var/lib/grafana/dashboards/default
-    atasources:
+    datasources:
       datasources.yaml:
         apiVersion: 1
         # list of datasources that should be deleted from the database
