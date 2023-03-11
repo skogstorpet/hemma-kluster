@@ -1,15 +1,13 @@
 ---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: database
 resources:
   - ./secret.sops.yaml
   - ./helmrelease.yaml
-  - ./cluster.yaml
-  # - scheduled-backup.yaml
 configMapGenerator:
   - name: cloudnative-pg-dashboard
-    namespace: database
     files:
       - cloudnative-pg-dashboard.json=https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/main/docs/src/samples/monitoring/grafana-dashboard.json
 generatorOptions:
@@ -18,3 +16,8 @@ generatorOptions:
     kustomize.toolkit.fluxcd.io/substitute: disabled
   labels:
     grafana_dashboard: "true"
+labels:
+  - pairs:
+      app.kubernetes.io/name: postgres
+      app.kubernetes.io/instance: postgres
+      app.kubernetes.io/part-of: postgres
