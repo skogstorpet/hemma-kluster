@@ -15,7 +15,7 @@ spec:
     size: 20Gi
     storageClass: longhorn
   superuserSecret:
-    name: cloudnative-pg-secret
+    name: postgres-secret
   bootstrap:
     recovery:
       source: &previous-cluster postgres-v2
