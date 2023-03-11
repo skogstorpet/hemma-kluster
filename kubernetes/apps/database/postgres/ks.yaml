@@ -6,7 +6,7 @@ metadata:
   name: cluster-apps-database-postgres
   namespace: flux-system
 spec:
-  path: ./cluster/apps/database/postgres/app
+  path: ./kubernetes/apps/database/postgres/app
   prune: true
   sourceRef:
     kind: GitRepository
