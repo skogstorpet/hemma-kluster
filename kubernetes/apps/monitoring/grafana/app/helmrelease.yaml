@@ -27,18 +27,15 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    extraInitContainers:
-      - name: init-db
-        image: ghcr.io/onedr0p/postgres-initdb:14.7
-        imagePullPolicy: IfNotPresent
-        envFrom:
-          - secretRef:
-              name: grafana-secret
     replicas: 2
     rbac:
       pspEnabled: false
     podAnnotations:
       configmap.reloader.stakater.com/reload: "grafana"
+    testFramework:
+      enabled: false
+    admin:
+      existingSecret: grafana-secret
     envFromSecrets:
       - name: grafana-secret
     env:
