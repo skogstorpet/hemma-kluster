@@ -6,7 +6,7 @@ metadata:
   name: cluster-apps-db-redis
   namespace: flux-system
 spec:
-  path: ./cluster/apps/database/redis/app
+  path: ./kubernetes/apps/database/redis/app
   prune: true
   sourceRef:
     kind: GitRepository
