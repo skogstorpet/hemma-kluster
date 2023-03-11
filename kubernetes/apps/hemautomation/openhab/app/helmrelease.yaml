@@ -112,8 +112,8 @@ spec:
       startup:
         enabled: false
 
-    resources:
-      requests:
-        ephemeral-storage: "1Gi"
-      limits:
-        ephemeral-storage: "1Gi"
+#    resources:
+#      requests:
+#        ephemeral-storage: "1Gi"
+#      limits:
+#        ephemeral-storage: "1Gi"
