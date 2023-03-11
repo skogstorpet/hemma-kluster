@@ -19,6 +19,15 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
+    initContainers:
+      - name: myinit-cont
+        image: alpine
+        imagePullPolicy: IfNotPresent
+        command:
+          - "apk add socat"
+          - "socat pty,link=/dev/ttyACM0,raw,user=0,group=0,mode=777 tcp:ser2sock:10000 &"
+          - sleep 200
+
     image:
       # -- image repository
       repository: openhab/openhab
@@ -102,3 +111,9 @@ spec:
         enabled: false
       startup:
         enabled: false
+
+    resources:
+      requests:
+        ephemeral-storage: "1Gi"
+      limits:
+        ephemeral-storage: "1Gi"

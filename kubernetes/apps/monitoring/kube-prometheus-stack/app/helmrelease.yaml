@@ -155,16 +155,16 @@ spec:
       enabled: true
     kubeControllerManager:
       enabled: true
-      endpoints: ["192.168.42.10", "192.168.42.11", "192.168.42.12"]
+      endpoints: ["10.10.10.7", "10.10.10.8", "10.10.10.9"]
     kubeScheduler:
       enabled: true
-      endpoints: ["192.168.42.10", "192.168.42.11", "192.168.42.12"]
+      endpoints: ["10.10.10.7", "10.10.10.8", "10.10.10.9"]
     kubeProxy:
       enabled: false # Enable if not using eBPF
       # endpoints: ["192.168.42.10", "192.168.42.11", "192.168.42.12"]
     kubeEtcd:
       enabled: true
-      endpoints: ["192.168.42.10", "192.168.42.11", "192.168.42.12"]
+      endpoints: ["10.10.10.7", "10.10.10.8", "10.10.10.9"]
       service:
         enabled: true
         port: 2381
@@ -222,13 +222,20 @@ spec:
           limits:
             memory: 7000Mi
         additionalScrapeConfigs:
-          - job_name: pikvm
+          # - job_name: pikvm
+          #  scrape_interval: 1m
+          #  scrape_timeout: 10s
+          #  metrics_path: /api/export/prometheus/metrics
+          #  basic_auth:
+          #    username: admin
+          #    password: 1nternalUseOnly
+          #  honor_timestamps: true
+          #  static_configs:
+          #    - targets: ["pikvm.turbo.ac"]
+          - job_name: 'openhab'
             scrape_interval: 1m
-            scrape_timeout: 10s
-            metrics_path: /api/export/prometheus/metrics
-            basic_auth:
-              username: admin
-              password: 1nternalUseOnly
-            honor_timestamps: true
+            scheme: http
+            metrics_path: /rest/metrics/prometheus
             static_configs:
-              - targets: ["pikvm.turbo.ac"]
+              - targets:
+              - 'openhab$.{SECRET_DOMAIN}'
