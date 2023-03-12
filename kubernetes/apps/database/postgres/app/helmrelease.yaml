@@ -28,11 +28,6 @@ spec:
     - name: longhorn
       namespace: storage
   values:
-    global:
-      postgresql:
-        auth:
-          postgresPassword: "${POSTGRES_ADMIN_PASSWORD}"
-          database: postgres
     image:
       repository: bitnami/postgresql
       tag: 15.2.0
@@ -40,6 +35,18 @@ spec:
       persistence:
         enabled: true
         existingClaim: postgres-pvc
+    global:
+      postgresql:
+        auth:
+          postgresPassword: "Pax1106Pax"
+          username: "krister"
+          password: "Pax1106PAx"
+          database: "postgres"
+          existingSecret: "postgres-secret"
+          secretKeys:
+            adminPasswordKey: "Pax1106Pax"
+            userPasswordKey: "Pax1106Pax"
+            replicationPasswordKey: "Pax1106Pax"
     metrics:
       enabled: true
       serviceMonitor:
