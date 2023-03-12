@@ -12,6 +12,9 @@ spec:
   instances: 3
   imageName: ghcr.io/cloudnative-pg/postgresql:14.7
   primaryUpdateStrategy: unsupervised
+  affinity:
+    nodeSelector:
+      disk: block
   storage:
     size: 20Gi
     storageClass: longhorn
@@ -23,11 +26,3 @@ spec:
       shared_buffers: 512MB
   monitoring:
     enablePodMonitor: true
-  affinity:
-    nodeAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
-          - matchExpressions:
-              - key: disk
-                operator: In
-                values: block
