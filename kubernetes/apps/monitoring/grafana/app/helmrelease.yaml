@@ -98,7 +98,7 @@ spec:
     dashboards:
       default:
         openhab:
-          url: https://github.com/openhab/openhab-addons/blob/main/bundles/org.openhab.io.metrics/doc/dashboard.json
+          url: https://raw.githubusercontent.com/openhab/openhab-addons/main/bundles/org.openhab.io.metrics/doc/dashboard.json
           datasource: Prometheus
         nodeexporter:
           gnetId: 1860
