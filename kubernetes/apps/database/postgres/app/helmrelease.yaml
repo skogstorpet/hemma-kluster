@@ -33,7 +33,7 @@ spec:
       tag: 15.2.0
     auth:
       enablePostgresUser: true
-      postgresPassword: Pax1106Pax
+      postgresPassword: "Pax1106Pax"
       database: postgres
     primary:
       persistence:
