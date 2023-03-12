@@ -44,9 +44,9 @@ spec:
           database: "postgres"
           existingSecret: "postgres-secret"
           secretKeys:
-            adminPasswordKey: "Pax1106Pax"
-            userPasswordKey: "Pax1106Pax"
-            replicationPasswordKey: "Pax1106Pax"
+            adminPasswordKey: "adminpassword"
+            userPasswordKey: "userpassword"
+            replicationPasswordKey: "replicationpassword"
     metrics:
       enabled: true
       serviceMonitor:
