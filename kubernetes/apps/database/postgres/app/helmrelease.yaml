@@ -32,8 +32,6 @@ spec:
       postgresql:
         auth:
           postgresPassword: "${POSTGRES_ADMIN_PASSWORD}"
-          username: krister
-          # password: "${POSTGRES_PASSWORD}"
           database: postgres
     image:
       repository: bitnami/postgresql
