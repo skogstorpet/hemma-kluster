@@ -33,7 +33,7 @@ spec:
       tag: 15.2.0
     auth:
       enablePostgresUser: true
-      postgresPassword: ${POSTGRES_ADMIN_PASSWORD}
+      postgresPassword: "${SUPER_SECRET_GRAFANA_PASSWORD}"
       database: postgres
     primary:
       persistence:
