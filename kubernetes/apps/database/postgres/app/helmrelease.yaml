@@ -1,19 +1,18 @@
 ---
-# Test
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: postgres
+  name: postgresql
   namespace: database
 spec:
-  interval: 15m
+  interval: 10m
   chart:
     spec:
-      chart: cloudnative-pg
-      version: 0.17.0
+      chart: postgresql
+      version: 12.2.2
       sourceRef:
         kind: HelmRepository
-        name: cloudnative-pg-charts
+        name: bitnami
         namespace: flux-system
   maxHistory: 3
   install:
@@ -27,8 +26,24 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    crds:
-      create: true
-    config:
-      data:
-        INHERITED_ANNOTATIONS: kyverno.io/ignore
+    global:
+      postgresql:
+        auth:
+          postgresPassword: "${POSTGRES_ADMIN_PASSWORD}"
+          username: krister
+          password: "${POSTGRES_PASSWORD}"
+          database: openhab
+    image:
+      registry: docker.io
+      repository: bitnami/postgresql
+      tag: "15.1.0"
+    primary:
+      persistence:
+        enabled: true
+        existingClaim: postgresql-data
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: true
+    nodeselector:
+      disk: block
