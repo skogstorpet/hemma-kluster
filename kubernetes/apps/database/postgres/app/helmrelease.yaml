@@ -37,6 +37,29 @@ spec:
       registry: docker.io
       repository: bitnami/postgresql
       tag: "15.1.0"
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: nginx
+        annotations:
+          nginx.ingress.kubernetes.io/whitelist-source-range: |
+            10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
+          hajimari.io/enable: "false"
+        hosts:
+          - host: &host "postgresql.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - *host
+
+    auth:
+      enablePostgresUser: true
+      postgresPassword: "${POSTGRES_ADMIN_PASSWORD}"
+      username: krister
+      password: "${POSTGRES_PASSWORD}"
+      database: openhab
     primary:
       persistence:
         enabled: true
