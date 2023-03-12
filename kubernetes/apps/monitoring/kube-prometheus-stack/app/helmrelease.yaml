@@ -238,4 +238,4 @@ spec:
             metrics_path: /rest/metrics/prometheus
             static_configs:
               - targets:
-                  - 'openhab.hemautomation:8080'
+                  - 'openhab.hemautomation.svc:8080'
