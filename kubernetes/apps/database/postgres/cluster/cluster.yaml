@@ -15,7 +15,7 @@ spec:
     size: 20Gi
     storageClass: longhorn
   superuserSecret:
-    name: postgres-secret
+    name: postgres-superuser
  #  bootstrap:
  #    recovery:
  #      source: &previous-cluster postgres-v2
