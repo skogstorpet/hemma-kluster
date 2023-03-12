@@ -3,7 +3,7 @@
     "1": {
       "Name": "postgres",
       "Group": "Servers",
-      "Host": "postgres",
+      "Host": "postgresql",
       "Port": 5432,
       "MaintenanceDB": "postgres",
       "Username": "postgres",
@@ -18,4 +18,3 @@
     }
   }
 }
-Footer
