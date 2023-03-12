@@ -97,6 +97,9 @@ spec:
 
     dashboards:
       default:
+        openhab:
+          url: https://github.com/openhab/openhab-addons/blob/main/bundles/org.openhab.io.metrics/doc/dashboard.json
+          datasource: Prometheus
         nodeexporter:
           gnetId: 1860
           revision: 23
@@ -130,9 +133,6 @@ spec:
           datasource: Prometheus
         kubernetes-pods:
           url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-pods.json
-          datasource: Prometheus
-        openhab:
-          url: https://github.com/openhab/openhab-addons/blob/main/bundles/org.openhab.io.metrics/doc/dashboard.json
           datasource: Prometheus
 
     sidecar:
