@@ -234,8 +234,8 @@ spec:
           #    - targets: ["pikvm.turbo.ac"]
           - job_name: 'openhab'
             scrape_interval: 1m
-            scheme: http
+            scrape_timeout: 10s
             metrics_path: /rest/metrics/prometheus
             static_configs:
               - targets:
-              - 'openhab$.{SECRET_DOMAIN}'
+                  - 'openhab:8080'
