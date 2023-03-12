@@ -28,13 +28,16 @@ spec:
     - name: longhorn
       namespace: storage
   values:
+    global:
+      postgresql:
+        auth:
+          postgresPassword: "${POSTGRES_ADMIN_PASSWORD}"
+          username: krister
+          password: "${POSTGRES_PASSWORD}"
+          database: postgres
     image:
       repository: bitnami/postgresql
       tag: 15.2.0
-    auth:
-      enablePostgresUser: true
-      postgresPassword: "Pax1106Pax"
-      database: postgres
     primary:
       persistence:
         enabled: true
