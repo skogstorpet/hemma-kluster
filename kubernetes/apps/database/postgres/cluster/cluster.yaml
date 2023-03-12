@@ -22,3 +22,7 @@ spec:
       shared_buffers: 512MB
   monitoring:
     enablePodMonitor: true
+  affinity:
+    tolerations:
+      - key: "disk"
+        operator: "block"
