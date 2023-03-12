@@ -53,17 +53,9 @@ spec:
       runAsGroup: 5050
       fsGroup: 5050
       fsGroupChangePolicy: "OnRootMismatch"
-    persistence:
-      config:
-        enabled: true
-        existingClaim: pgadmin-config-v1
-        mountPath: "/var/lib/pgadmin"
-      server-json:
-        enabled: true
-        type: configMap
-        name: servers-json
-        subPath: servers.json
-        mountPath: /pgadmin4/servers.json
+    persistentVolume:
+      enabled: true
+      existingClaim: pgadmin-config-v1
     podAnnotations:
       reloader.stakater.com/auto: "true"
     resources:
@@ -72,3 +64,14 @@ spec:
         memory: 164M
       limits:
         memory: 236M
+    serverDefinitions:
+      enabled: true
+      servers:
+        postgres:
+          Name: postgres
+          Group: Servers
+          Port: 5432
+          Username: postgres
+          Host: postgres-any.default.svc.cluster.local
+          SSLMode: prefer
+          MaintenanceDB: app
