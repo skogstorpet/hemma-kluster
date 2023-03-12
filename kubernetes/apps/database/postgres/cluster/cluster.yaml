@@ -8,6 +8,7 @@ metadata:
   annotations:
     kyverno.io/ignore: "true"
 spec:
+  nodeName: worker1
   instances: 3
   imageName: ghcr.io/cloudnative-pg/postgresql:14.7
   primaryUpdateStrategy: unsupervised
