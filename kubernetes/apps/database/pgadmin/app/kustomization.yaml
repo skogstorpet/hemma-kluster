@@ -9,8 +9,9 @@ resources:
   - ./helmrelease.yaml
 configMapGenerator:
   - name: servers-json
+    namespace: database
     files:
-      - config/servers.json
+      - ./config/servers.json
 generatorOptions:
   disableNameSuffixHash: true
   annotations:
