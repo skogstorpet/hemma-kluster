@@ -32,5 +32,3 @@ spec:
     config:
       data:
         INHERITED_ANNOTATIONS: kyverno.io/ignore
-  nodeSelector:
-    disk: block
