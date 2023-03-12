@@ -1,17 +1,13 @@
 ---
-kind: PersistentVolumeClaim
 apiVersion: v1
+kind: PersistentVolumeClaim
 metadata:
-  name: postgresql-data
-  namespace: databases
-  labels:
-    snapshot.home.arpa/enabled: "true"
-    app.kubernetes.io/instance: postgresql
-    app.kubernetes.io/name: postgresql
+  name: postgres-pvc
+  namespace: databas
 spec:
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 5Gi
+      storage: 2Gi
   storageClassName: longhorn
