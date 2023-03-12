@@ -23,6 +23,10 @@ spec:
   monitoring:
     enablePodMonitor: true
   affinity:
-    tolerations:
-      - key: "disk"
-        operator: "block"
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+              - key: disk
+                operator: In
+                values: block
