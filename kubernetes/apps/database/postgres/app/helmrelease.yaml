@@ -6,7 +6,6 @@ metadata:
   name: postgres
   namespace: database
 spec:
-  nodeName: worker1
   interval: 15m
   chart:
     spec:
