@@ -46,7 +46,7 @@ spec:
           Port: 5432
           Username: postgres
           Password:
-          Host: postgresql.database.svc
+          Host: postgresql.database.svc.cluster.local
           SSLMode: prefer
           MaintenanceDB: postgres
     ingress:
