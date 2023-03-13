@@ -33,7 +33,7 @@ spec:
     backend:
       replicas: 3
       persistence:
-        storageClass: ceph-block
+        storageClass: longhorn
       extraVolumeMounts:
         - name: rules
           mountPath: /rules/fake
