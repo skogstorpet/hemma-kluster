@@ -4,4 +4,4 @@ kind: Kustomization
 resources:
   - ./dashboard
   - ./helmrelease.yaml
-  - ./prometheusrule.yaml
+#  - ./prometheusrule.yaml
