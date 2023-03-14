@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
   - ./influxdb/ks.yaml
-  - ./postgres/ks.yaml
+  - ./cloudnative-pg/ks.yaml
+#  - ./postgres/ks.yaml
 #  - ./redis/ks.yaml
   - ./pgadmin/ks.yaml

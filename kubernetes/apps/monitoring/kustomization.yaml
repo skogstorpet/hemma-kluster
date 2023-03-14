@@ -9,3 +9,4 @@ resources:
   - ./loki/ks.yaml
   - ./promtail/ks.yaml
   - ./thanos/ks.yaml
+  - ./vector/ks.yaml
