@@ -27,7 +27,7 @@ spec:
       wal:
         compression: gzip
       destinationPath: s3://cnpg/v15/v1
-      endpointURL: http://s3.stromberg.uk:9000
+      endpointURL: minio.storage.svc:9000
       s3Credentials:
         accessKeyId:
           name: cloudnative-pg-postgres-s3
