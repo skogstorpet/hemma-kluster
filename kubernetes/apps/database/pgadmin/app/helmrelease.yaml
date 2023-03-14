@@ -34,9 +34,9 @@ spec:
         # This will disable web login and the master password pop-up
         # I do this because this is not exposed outside my LAN
         - name: PGADMIN_CONFIG_SERVER_MODE
-          value: "True"
+          value: "False"
         - name: PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED
-          value: "True"
+          value: "False"
     serverDefinitions:
       enabled: true
       servers:
